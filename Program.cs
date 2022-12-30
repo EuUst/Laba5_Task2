@@ -4,9 +4,10 @@
     {
         static void Main(string[] args)
         {
-            string numb = "-12k45";
-
-            Console.WriteLine(GetSum(GetClearNumber(numb)));
+            string example = "-12k45";
+            int numb = ToNumber(example);
+            int result = Sum(numb);
+            Console.WriteLine(result);  
         }
 
         static bool IsCorrect(string input)
@@ -19,7 +20,7 @@
                 {
                     if (!Char.IsDigit(arrayOfChar[i]))
                     {
-                        Console.WriteLine("Number is not in a correct form.");
+                        Console.WriteLine("Некорректное число");
                         return false;
                     }                 
                 }
@@ -28,9 +29,10 @@
             return true;
         }
 
-        static int ToInt(string text)
+        static int СonvertNumb(string text)
         {
             int result = 0;
+
             for (int i = 0; i < text.Length; i++)
             {
                 result += ((int)text[text.Length - i - 1] - 48) * (int)Math.Pow(10, i);
@@ -39,24 +41,19 @@
             return result;
         }
 
-        static int GetClearNumber(string number)
+        static int ToNumber(string number)
         {
             if (IsCorrect(number))
             {
                 if (number.StartsWith("-"))
-                {
-                    return ToInt(number.Substring(1));
-                }
+                    return СonvertNumb(number.Substring(1));
                 else
-                {
-                    return ToInt(number);
-                }
+                    return СonvertNumb(number);
             }
-
             return 0;
         }
 
-        static int GetSum(int value)
+        static int Sum(int value)
         {
             int result = 0;
 
@@ -65,7 +62,7 @@
 
             if (value > 0)
             {
-                result += GetSum(value);
+                result += Sum(value);
             }
 
             return result;
